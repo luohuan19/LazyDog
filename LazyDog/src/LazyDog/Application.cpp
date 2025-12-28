@@ -1,11 +1,17 @@
+#include "ldpch.h"
 #include "Application.h"
 
+#include "LazyDog/Events/ApplicationEvent.h"
+#include "LazyDog/Log.h"
+
+#include <GLFW/glfw3.h>
 
 namespace LazyDog
 {
 
 	Application::Application()
 	{
+		m_Window = std::unique_ptr<Window>(Window::Create());
 
 	}
 
@@ -16,9 +22,13 @@ namespace LazyDog
 
 	void Application::Run()
 	{
-		while (true)
+		
+		while (m_Running)
 		{
-
+			glClearColor(1,0,1,1);
+			glClear(GL_COLOR_BUFFER_BIT);
+			m_Window->OnUpdate();
+			
 		}
 	}
 
