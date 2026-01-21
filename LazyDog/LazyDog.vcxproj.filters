@@ -7,6 +7,9 @@
     <Filter Include="LazyDog\Events">
       <UniqueIdentifier>{03BAFB81-EF87-EF87-D81B-60AEC488CBEC}</UniqueIdentifier>
     </Filter>
+    <Filter Include="LazyDog\ImGui">
+      <UniqueIdentifier>{69BBE5CD-D57B-6104-9EB6-AA810A36A6E0}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Platform">
       <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
     </Filter>
@@ -37,11 +40,32 @@
     <ClInclude Include="src\LazyDog\Events\MouseEvent.h">
       <Filter>LazyDog\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\LazyDog\ImGui\ImGuiLayer.h">
+      <Filter>LazyDog\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LazyDog\Input.h">
+      <Filter>LazyDog</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LazyDog\KeyCodes.h">
+      <Filter>LazyDog</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LazyDog\Layer.h">
+      <Filter>LazyDog</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LazyDog\LayerStack.h">
+      <Filter>LazyDog</Filter>
+    </ClInclude>
     <ClInclude Include="src\LazyDog\Log.h">
+      <Filter>LazyDog</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LazyDog\MouseButtonCodes.h">
       <Filter>LazyDog</Filter>
     </ClInclude>
     <ClInclude Include="src\LazyDog\Window.h">
       <Filter>LazyDog</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h">
+      <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
       <Filter>Platform\Windows</Filter>
@@ -52,8 +76,23 @@
     <ClCompile Include="src\LazyDog\Application.cpp">
       <Filter>LazyDog</Filter>
     </ClCompile>
+    <ClCompile Include="src\LazyDog\ImGui\ImGuiBuild.cpp">
+      <Filter>LazyDog\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LazyDog\ImGui\ImGuiLayer.cpp">
+      <Filter>LazyDog\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LazyDog\Layer.cpp">
+      <Filter>LazyDog</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LazyDog\LayerStack.cpp">
+      <Filter>LazyDog</Filter>
+    </ClCompile>
     <ClCompile Include="src\LazyDog\Log.cpp">
       <Filter>LazyDog</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
+      <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>Platform\Windows</Filter>

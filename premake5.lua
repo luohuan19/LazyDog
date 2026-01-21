@@ -14,14 +14,20 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
 IncludeDir["GLFW"] = "LazyDog/vendor/GLFW/include"
+IncludeDir["GLAD"] = "LazyDog/vendor/GLAD/include"
+IncludeDir["ImGui"] = "LazyDog/vendor/imgui"
+IncludeDir["glm"] = "LazyDog/vendor/glm"
 
 include "LazyDog/vendor/GLFW"
-
+include "LazyDog/vendor/GLAD"
+include "LazyDog/vendor/imgui"
 
 project "LazyDog"
     location "LazyDog"
-    kind "SharedLib"
+    kind "StaticLib"
     language "C++"
+    cppdialect "C++17"
+    staticruntime "On"
    
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -35,45 +41,54 @@ project "LazyDog"
         "%{prj.name}/src/**.cpp"
     }
 
+    defines
+    {
+        "_CRT_SECURE_NO_WARNINGS",
+        "_SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS"
+    }
+
     includedirs
     {
         "%{prj.name}/vendor/spdlog/include",
         "%{prj.name}/src",
-        "%{IncludeDir.GLFW}"
+        "%{IncludeDir.GLFW}",
+        "%{IncludeDir.GLAD}",
+        "%{IncludeDir.ImGui}",
+        "%{IncludeDir.glm}"
     }
 
     links
     {
         "GLFW",
+        "GLAD",
+        "ImGui",
         "opengl32.lib"
     }
 
     filter "system:windows"
-        cppdialect "C++17"
-        staticruntime "On"
         systemversion "latest"
 
         defines 
         {
             "LD_PLATFORM_WINDOWS",
+            "LD_ENABLE_ASSERTS",
             "LD_BUILD_DLL",
+            "GLFW_INCLUDE_NONE"
         }
-
-        postbuildcommands
-        {
-			("{COPYFILE} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox/%{cfg.buildtarget.name}")
-		}
     
     filter "configurations:Debug"
         defines "LD_DEBUG"
+        buildoptions "/MDd"
         symbols "On"
     
     filter "configurations:Release"
         defines "LD_RELEASE"
+        buildoptions "/MD"
         optimize "On"
     
     filter "configurations:Dist"
         defines "LD_DIST"
+        buildoptions "/MD"
         optimize "On"
     
     filter {"system:windows", "configurations:Debug"}
@@ -84,18 +99,29 @@ project "Sandbox"
     location "Sandbox"
     kind "ConsoleApp"
     language "C++"
+    cppdialect "C++17"
+    staticruntime "On"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
     files 
     {
         "%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp"
+        "%{prj.name}/src/**.cpp",
+        "%{prj.name}/vendor/glm/glm/**.hpp",
+        "%{prj.name}/vendor/glm/glm/**.inl",
+    }
+
+    defines
+    {
+        "_CRT_SECURE_NO_WARNINGS",
+        "_SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS"
     }
 
     includedirs 
     {
         "LazyDog/vendor/spdlog/include",
+        "%{IncludeDir.glm}",
         "LazyDog/src"
     }
 
@@ -105,8 +131,6 @@ project "Sandbox"
     }
 
     filter "system:windows"
-        cppdialect "C++17"
-        staticruntime "On"
         systemversion "latest"
 
         defines {
@@ -115,14 +139,17 @@ project "Sandbox"
 
     filter "configurations:Debug"
         defines "LD_DEBUG"
+        buildoptions "/MDd"
         symbols "On"
     
     filter "configurations:Release"
         defines "LD_RELEASE"
+        buildoptions "/MD"
         optimize "On"
     
     filter "configurations:Dist"
         defines "LD_DIST"
+        buildoptions "/MD"
         optimize "On"
     
     filter {"system:windows", "configurations:Debug"}

@@ -2,6 +2,9 @@
 
 #include "Core.h"
 #include "Window.h"
+#include "LayerStack.h"
+#include "ImGui/ImGuiLayer.h"
+#include "LazyDog/Events/ApplicationEvent.h"
 #include "Events/Event.h"
 
 namespace LazyDog {
@@ -13,9 +16,28 @@ namespace LazyDog {
 		virtual ~Application();
 
 		void Run();
+
+		void OnEvent(Event& e);
+
+		void PushLayer(Layer* layer);
+		void PushOverlay(Layer* layer);
+
+		inline Window& GetWindow() {return *m_Window;}
+		inline static Application& Get() { return *s_Instance; }
+
 	private:
+		bool OnWindowClose(WindowCloseEvent& e);
+		
+		bool m_Running = true; 
+		LayerStack m_LayerStack;
+
 		std::unique_ptr<Window> m_Window;
-		bool m_Running = true;
+		ImGuiLayer* m_ImGuiLayer;
+
+		//TEMP
+		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+	private:
+		static Application* s_Instance;
 	};
 
 	// To be defined in CLIENT

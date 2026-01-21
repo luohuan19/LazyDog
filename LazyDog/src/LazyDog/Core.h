@@ -1,10 +1,14 @@
 #pragma once
 
 #ifdef LD_PLATFORM_WINDOWS
-	#ifdef LD_BUILD_DLL
-		#define LazyDog_API __declspec(dllexport)
+	#if LD_DYNAMIC_LINK
+		#ifdef LD_BUILD_DLL
+			#define LazyDog_API __declspec(dllexport)
+		#else
+			#define LazyDog_API __declspec(dllimport)
+		#endif
 	#else
-		#define LazyDog_API __declspec(dllimport)
+		#define LazyDog_API
 	#endif
 #else
 	#error LazyDog only support Windows!

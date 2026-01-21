@@ -3,4 +3,10 @@
 	url = https://github.com/gabime/spdlog.git
 [submodule "LazyDog/vendor/GLFW"]
 	path = LazyDog/vendor/GLFW
-	url = https://github.com/TheGodOfBUG/glfw.git
+	url = https://github.com/luohuan19/glfw.git
+[submodule "LazyDog/vendor/imgui"]
+	path = LazyDog/vendor/imgui
+	url = https://github.com/luohuan19/imgui.git
+[submodule "LazyDog/vendor/glm"]
+	path = LazyDog/vendor/glm
+	url = https://github.com/g-truc/glm.git
